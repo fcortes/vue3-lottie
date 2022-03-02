@@ -1,11 +1,14 @@
 <template>
-  <div
-    :data-id="elementid"
-    class="lottie-animation-container"
-    :style="getCurrentStyle"
-    @mouseenter="hoverStarted"
-    @mouseleave="hoverEnded"
-  ></div>
+  <div>
+    test
+    <div
+      :data-id="elementid"
+      class="lottie-animation-container"
+      :style="getCurrentStyle"
+      @mouseenter="hoverStarted"
+      @mouseleave="hoverEnded"
+    ></div>
+  </div>
 </template>
 
 <script lang="ts">
