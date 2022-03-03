@@ -10,7 +10,7 @@
     <lottie-player
       :data-id="elementid"
       :loop="lottieLoop"
-      :count="lottieCount"
+      :count="3"
       ref="lottie_player"
       :style="getCurrentStyle"
       class="lottie-animation-container"
@@ -60,7 +60,7 @@ export default defineComponent({
 
     count: {
       type: Number as PropType<LottieProps['count']>,
-      default: 0,
+      default: 1,
     },
 
     autoPlay: {
@@ -127,6 +127,8 @@ export default defineComponent({
     let lottieLoop = ref<boolean>(props.loop)
     let lottieCount = ref<number>(props.count)
 
+    console.log(lottieLoop.value, props.loop, lottieCount.value, props.count)
+
     // hack fix supplement for ssr
     const checkIfContainerExists = (elementID: String) => {
       if (document.querySelector(`[data-id="${elementID}" ]`) !== null) {
@@ -162,7 +164,7 @@ export default defineComponent({
         }
       }
 
-      lottie_player.value.load(props.animationData)
+      lottie_player.value.load(animationData)
 
       let loop = props.loop
 
@@ -425,6 +427,8 @@ export default defineComponent({
 
     onMounted(async () => {
       elementid.value = makeid(20) // generate a random id for the container
+      lottieLoop.value = props.loop
+      lottieCount.value = props.count
       setupLottie(elementid.value)
     })
 

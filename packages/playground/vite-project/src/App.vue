@@ -1,8 +1,8 @@
 <template>
   <Vue3Lottie
     :animationData="DogJSON"
-    :height="300"
-    :width="300"
+    :height="320"
+    :width="320"
     direction="alternate"
     :loop="true"
     :count="2"
