@@ -11,6 +11,7 @@
     "prettier": "npx prettier --write ."
   },
   "dependencies": {
+    "@lottiefiles/lottie-player": "^1.5.6",
     "lottie-web": "^5.8.1"
   },
   "peerDependencies": {

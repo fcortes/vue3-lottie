@@ -1,24 +1,34 @@
 <template>
   <div>
-    test
-    <div
+    <!-- <div
       :data-id="elementid"
       class="lottie-animation-container"
       :style="getCurrentStyle"
       @mouseenter="hoverStarted"
       @mouseleave="hoverEnded"
-    ></div>
+    ></div> -->
+    <lottie-player
+      :data-id="elementid"
+      :loop="lottieLoop"
+      :count="lottieCount"
+      ref="lottie_player"
+      :style="getCurrentStyle"
+      class="lottie-animation-container"
+      @mouseenter="hoverStarted"
+      @mouseleave="hoverEnded"
+    ></lottie-player>
   </div>
 </template>
 
 <script lang="ts">
 import { ref, onMounted, computed, watch, defineComponent, PropType } from 'vue'
-import Lottie from 'lottie-web'
+import * as LottiePlayer from '@lottiefiles/lottie-player'
 
 export interface LottieProps {
   animationData: any
   animationLink: string
-  loop: boolean | number
+  loop: boolean
+  count: number
   autoPlay: boolean
   rendererSettings: any
   width: number | string
@@ -44,8 +54,13 @@ export default defineComponent({
     },
 
     loop: {
-      type: [Boolean, Number] as PropType<LottieProps['loop']>,
+      type: Boolean as PropType<LottieProps['loop']>,
       default: true,
+    },
+
+    count: {
+      type: Number as PropType<LottieProps['count']>,
+      default: 0,
     },
 
     autoPlay: {
@@ -104,9 +119,13 @@ export default defineComponent({
   },
 
   setup(props, { emit: emits }) {
-    let lottieAnimation = ref<any>(null)
+    let lottie_player = ref<any>(null)
     const elementid = ref<string>('')
+    const count = ref<number | undefined>(0)
     let direction = 1
+
+    let lottieLoop = ref<boolean>(props.loop)
+    let lottieCount = ref<number>(props.count)
 
     // hack fix supplement for ssr
     const checkIfContainerExists = (elementID: String) => {
@@ -118,18 +137,19 @@ export default defineComponent({
     }
 
     const loadLottie = async (element: Element) => {
-      let autoPlay = props.autoPlay
-
-      if (props.playOnHover) {
-        autoPlay = false
-      }
+      console.log(lottie_player.value)
+      console.log(lottie_player.value.getLottie())
+      lottie_player.value.load(props.animationData)
+      console.log(lottie_player.value.getLottie())
 
       // creating a copy of the animation data to prevent the original data from being modified
       // also needed to render multiple animations on the same page
-      let animationData = {}
-      if (props.animationData !== {}) {
-        animationData = JSON.parse(JSON.stringify(props.animationData))
-      }
+      // let animationData = {}
+      // if (props.animationData !== {}) {
+      //   animationData = JSON.parse(JSON.stringify(props.animationData))
+      // }
+
+      let animationData = props.animationData
 
       if (props.animationLink != '') {
         try {
@@ -142,75 +162,110 @@ export default defineComponent({
         }
       }
 
+      lottie_player.value.load(props.animationData)
+
       let loop = props.loop
+
+      if (props.loop === true) {
+        lottie_player.value.setLooping(true)
+        count.value = 0
+      }
 
       // drop the loop by one
       if (typeof loop === 'number') {
-        if (loop > 0) {
-          loop = loop - 1
-        }
+        count.value = loop
+        lottie_player.value.setLooping(true)
+        console.log(count.value)
+      } else if (loop === false) {
+        count.value = 1
+        lottie_player.value.setLooping(false)
+      }
+
+      console.log(lottie_player.value.getLottie())
+
+      let autoPlay = props.autoPlay
+
+      if (props.playOnHover) {
+        autoPlay = false
       }
 
       if (props.delay > 0) {
         autoPlay = false
       }
 
-      // actually load the animation
-      lottieAnimation = Lottie.loadAnimation({
-        container: element,
-        renderer: 'svg',
-        loop: loop,
-        autoplay: autoPlay,
-        animationData: animationData,
-      })
-
       setTimeout(() => {
         autoPlay = props.autoPlay
         if (props.playOnHover) {
-          lottieAnimation.pause()
+          lottie_player.value.pause()
         } else {
-          lottieAnimation.play()
+          lottie_player.value.play()
         }
       }, props.delay)
 
-      lottieAnimation.setSpeed(props.speed)
+      lottie_player.value.setSpeed(props.speed)
 
       if (props.direction === 'reverse') {
-        lottieAnimation.setDirection(-1)
+        lottie_player.value.setDirection(-1)
       }
+
       if (props.direction === 'normal') {
-        lottieAnimation.setDirection(1)
+        lottie_player.value.setDirection(1)
       }
 
       if (props.pauseAnimation) {
-        lottieAnimation.pause()
+        lottie_player.value.pause()
       } else {
         if (props.playOnHover) {
-          lottieAnimation.pause()
+          lottie_player.value.pause()
         }
       }
 
       // set the emit events
-      lottieAnimation.addEventListener('loopComplete', () => {
+      lottie_player.value.addEventListener('load', () => {
+        emits('onEnterFrame')
+      })
+
+      lottie_player.value.addEventListener('error', () => {
+        emits('onEnterFrame')
+      })
+
+      lottie_player.value.addEventListener('ready', () => {
+        console.log("You've captured the ready event!")
+        emits('onEnterFrame')
+      })
+
+      lottie_player.value.addEventListener('play', () => {
+        emits('onEnterFrame')
+      })
+
+      lottie_player.value.addEventListener('pause', () => {
+        emits('onEnterFrame')
+      })
+
+      lottie_player.value.addEventListener('stop', () => {
+        emits('onEnterFrame')
+      })
+
+      lottie_player.value.addEventListener('loop', () => {
+        console.log("You've captured the complete event!")
+
         if (props.direction === 'alternate') {
-          lottieAnimation.stop()
+          lottie_player.value.stop()
           direction = direction * -1 //invert direction
-          lottieAnimation.setDirection(direction)
-          lottieAnimation.play()
+          lottie_player.value.setDirection(direction)
+          lottie_player.value.play()
         }
         emits('onLoopComplete')
       })
 
-      lottieAnimation.addEventListener('complete', () => {
+      lottie_player.value.addEventListener('complete', () => {
+        console.log("You've captured the complete event!")
+
         emits('onComplete')
       })
 
-      lottieAnimation.addEventListener('enterFrame', () => {
+      lottie_player.value.addEventListener('frame', () => {
         emits('onEnterFrame')
-      })
-
-      lottieAnimation.addEventListener('segmentStart', () => {
-        emits('onSegmentStart')
       })
     }
 
@@ -239,22 +294,22 @@ export default defineComponent({
 
     // function to check if the container is being hovered
     const hoverStarted = () => {
-      if (lottieAnimation && props.pauseOnHover) {
-        lottieAnimation.pause()
+      if (lottie_player.value && props.pauseOnHover) {
+        lottie_player.value.pause()
       }
 
-      if (lottieAnimation && props.playOnHover) {
-        lottieAnimation.play()
+      if (lottie_player.value && props.playOnHover) {
+        lottie_player.value.play()
       }
     }
 
     // function to check if the container is no longer being hovered
     const hoverEnded = () => {
-      if (lottieAnimation && props.pauseOnHover) {
-        lottieAnimation.play()
+      if (lottie_player.value && props.pauseOnHover) {
+        lottie_player.value.play()
       }
-      if (lottieAnimation && props.playOnHover) {
-        lottieAnimation.pause()
+      if (lottie_player.value && props.playOnHover) {
+        lottie_player.value.pause()
       }
     }
 
@@ -262,7 +317,7 @@ export default defineComponent({
     // mainly used for the pauseAnimation prop
     watch(props, () => {
       // error if pauseAnimation is true and pauseOnHover is also true or playOnHover is also true
-      if ((props.pauseOnHover || props.playOnHover) && !props.pauseAnimation) {
+      if ((props.pauseOnHover || props.playOnHover) && props.pauseAnimation) {
         console.error(
           'If you are using pauseAnimation prop for Vue3-Lottie, please remove the props pauseOnHover or playOnHover',
         )
@@ -270,38 +325,32 @@ export default defineComponent({
 
       // control the animation play state
       if (!props.pauseOnHover && !props.playOnHover) {
-        if (props.pauseAnimation && lottieAnimation) {
-          lottieAnimation.pause()
-        } else if (lottieAnimation && !props.pauseAnimation) {
-          lottieAnimation.play()
+        if (props.pauseAnimation && lottie_player.value) {
+          lottie_player.value.pause()
+        } else if (lottie_player.value && !props.pauseAnimation) {
+          lottie_player.value.play()
         }
       }
     })
 
     // method to play the animation
     const play = () => {
-      if (lottieAnimation) {
-        lottieAnimation.play()
+      if (lottie_player.value) {
+        lottie_player.value.play()
       }
     }
 
     // method to pause the animation
     const pause = () => {
-      if (lottieAnimation) {
-        lottieAnimation.pause()
+      if (lottie_player.value) {
+        lottie_player.value.pause()
       }
     }
 
     // method to stop the animation. It will reset the animation to the first frame
     const stop = () => {
-      if (lottieAnimation) {
-        lottieAnimation.stop()
-      }
-    }
-
-    const destroy = () => {
-      if (lottieAnimation) {
-        lottieAnimation.destroy()
+      if (lottie_player.value) {
+        lottie_player.value.stop()
       }
     }
 
@@ -312,61 +361,24 @@ export default defineComponent({
         throw new Error('Speed must be greater than 0')
       }
 
-      if (lottieAnimation) {
-        lottieAnimation.setSpeed(speed)
+      if (lottie_player.value) {
+        lottie_player.value.setSpeed(speed)
       }
     }
 
     const setDirection = (direction: 'forward' | 'reverse') => {
-      if (lottieAnimation) {
+      if (lottie_player.value) {
         if (direction === 'forward') {
-          lottieAnimation.setDirection(1)
+          lottie_player.value.setDirection(1)
         } else if (direction === 'reverse') {
-          lottieAnimation.setDirection(-1)
+          lottie_player.value.setDirection(-1)
         }
       }
     }
 
-    const goToAndStop = (frame: number, isFrame: Boolean = true) => {
-      //value: numeric value.
-      //isFrame: defines if first argument is a time based value or a frame based (default true).
-
-      if (lottieAnimation) {
-        lottieAnimation.goToAndStop(frame, isFrame)
-      }
-    }
-
-    const goToAndPlay = (frame: number, isFrame: Boolean = true) => {
-      //value: numeric value
-      //isFrame: defines if first argument is a time based value or a frame based (default true).
-
-      if (lottieAnimation) {
-        lottieAnimation.goToAndPlay(frame, isFrame)
-      }
-    }
-
-    const playSegments = (
-      segments: Array<number>,
-      forceFlag: Boolean = false,
-    ) => {
-      //segments: array. Can contain 2 numeric values that will be used as first and last frame of the animation. Or can contain a sequence of arrays each with 2 numeric values.
-      //forceFlag: boolean. If set to false, it will wait until the current segment is complete. If true, it will update values immediately.
-
-      if (lottieAnimation) {
-        lottieAnimation.playSegments(segments, forceFlag)
-      }
-    }
-
-    const setSubFrame = (useSubFrame: Boolean = true) => {
-      // useSubFrames: If false, it will respect the original AE fps. If true, it will update on every requestAnimationFrame with intermediate values. Default is true.
-      if (lottieAnimation) {
-        lottieAnimation.setSubframe(useSubFrame)
-      }
-    }
-
-    const getDuration = (inFrames: Boolean = true) => {
-      if (lottieAnimation) {
-        return lottieAnimation.getDuration(inFrames)
+    const getDuration = () => {
+      if (lottie_player.value) {
+        return lottie_player.getLottie().totalFrames
       }
     }
 
@@ -421,6 +433,17 @@ export default defineComponent({
       hoverEnded,
       hoverStarted,
       getCurrentStyle,
+      LottiePlayer,
+      lottie_player,
+      count,
+      getDuration,
+      setDirection,
+      setSpeed,
+      stop,
+      pause,
+      play,
+      lottieLoop,
+      lottieCount,
     }
   },
 })

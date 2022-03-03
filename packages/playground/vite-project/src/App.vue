@@ -1,5 +1,12 @@
 <template>
-  <Vue3Lottie :animationData="DogJSON" :height="300" />
+  <Vue3Lottie
+    :animationData="DogJSON"
+    :height="300"
+    :width="300"
+    direction="alternate"
+    :loop="true"
+    :count="2"
+  />
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
 </template>
 

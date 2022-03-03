@@ -3,7 +3,15 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.includes('lottie-player'),
+        },
+      },
+    }),
+  ],
   build: {
     lib: {
       entry: resolve(__dirname, './src/index.ts'),
@@ -11,12 +19,13 @@ export default defineConfig({
     },
     outDir: 'dist',
     rollupOptions: {
-      external: ['vue', 'lottie-web'],
+      external: ['vue', 'lottie-web', '@lottiefiles/lottie-player'],
       output: {
         exports: 'named',
         globals: {
           vue: 'Vue',
           'lottie-web': 'Lottie',
+          '@lottiefiles/lottie-player': 'LottiePlayer',
         },
       },
     },
