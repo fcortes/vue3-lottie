@@ -81,7 +81,6 @@ import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 
 export default {
-  name: 'BasicExampleURL',
   components: {
     Vue3Lottie,
   },
@@ -115,7 +114,6 @@ import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 
 export default {
-  name: 'BasicExampleAlternate',
   components: {
     Vue3Lottie,
   },
@@ -151,7 +149,6 @@ import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 
 export default {
-  name: 'LoopExample',
   components: {
     Vue3Lottie,
   },
@@ -187,7 +184,6 @@ import 'vue3-lottie/dist/style.css'
 import StarJSON from './lotties/star.json'
 
 export default {
-  name: 'BasicExampleAlternate',
   components: {
     Vue3Lottie,
   },
@@ -214,9 +210,9 @@ If you set `pauseOnHover` to true, the animation will pause when you hover over 
 ```vue
 <template>
   <Vue3Lottie
-    animationLink="https://assets3.lottiefiles.com/packages/lf20_2kHQhR.json"
-    :height="300"
-    :width="300"
+    animationLink="https://assets9.lottiefiles.com/packages/lf20_wxu55sii.json"
+    :height="400"
+    :width="400"
     :pauseOnHover="true"
   />
 </template>
@@ -226,7 +222,6 @@ import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 
 export default {
-  name: 'PauseOnHoverExample',
   components: {
     Vue3Lottie,
   },
@@ -260,7 +255,6 @@ import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 
 export default {
-  name: 'PlayOnHoverExample',
   components: {
     Vue3Lottie,
   },
@@ -272,17 +266,20 @@ export default {
 
 You can also use the `pauseAnimation` prop to control the play and pause state of the lottie animation.
 
-<ClientOnly>
-<ReactiveExample/>
-</ClientOnly>
+<iframe src="https://codesandbox.io/embed/vue3lottie-reactiveexample-bmnisp?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark&view=preview"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="Vue3Lottie-ReactiveExample"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
 ```vue
 <template>
   <div>
     <Vue3Lottie
-      :animationData="CarJSON"
-      :height="200"
-      :width="200"
+      animationLink="https://assets9.lottiefiles.com/packages/lf20_wxu55sii.json"
+      :height="400"
+      :width="400"
       :pauseAnimation="playState"
     />
     <button @click="playState = !playState">Play/Pause Animation</button>
@@ -293,8 +290,6 @@ You can also use the `pauseAnimation` prop to control the play and pause state o
 import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 
-import CarJSON from './lotties/car.json'
-
 export default {
   components: {
     Vue3Lottie,
@@ -302,7 +297,6 @@ export default {
   data() {
     return {
       playState: false,
-      CarJSON,
     }
   },
 }
@@ -313,15 +307,18 @@ export default {
 
 `vue3-lottie` has support for events to be emitted from the animation.
 
-<ClientOnly>
-<EventExample/>
-</ClientOnly>
+<iframe src="https://codesandbox.io/embed/vue3lottie-eventexample-oevvl7?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark&view=preview"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="Vue3Lottie-EventExample"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
 ```vue
 <template>
   <div>
     <Vue3Lottie
-      :animationData="ClockJSON"
+      animationLink="https://assets8.lottiefiles.com/packages/lf20_k0dvn0vb.json"
       :height="200"
       :width="200"
       @onLoopComplete="completed++"
@@ -334,16 +331,12 @@ export default {
 import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 
-import ClockJSON from './lotties/clock.json'
-
 export default {
-  name: 'EventExample',
   components: {
     Vue3Lottie,
   },
   data() {
     return {
-      ClockJSON,
       completed: 0,
     }
   },
@@ -355,9 +348,12 @@ export default {
 
 `vue3-lottie` has a few methods that you can call directly from your component if needed. Add a `ref` to the `vue3-lottie` component and then call the methods you want.
 
-<ClientOnly>
-<CustomControlsExample/>
-</ClientOnly>
+<iframe src="https://codesandbox.io/embed/vue3lottie-customcontrolsexample-dclfoe?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark&view=preview"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="Vue3Lottie-CustomControlsExample"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
 ::: info
 `stop` will stop the animation and reset it to the first frame.
@@ -369,9 +365,9 @@ export default {
     <div>
       <Vue3Lottie
         ref="customControl"
-        :animationData="CountdownJSON"
-        :height="200"
-        :width="200"
+        animationLink="https://assets9.lottiefiles.com/packages/lf20_8rdkzrlk.json"
+        :height="300"
+        :width="300"
       />
       <div>
         <div>
@@ -392,8 +388,6 @@ export default {
 import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 
-import CountdownJSON from './lotties/countdown.json'
-
 export default {
   name: 'CustomControlsExample',
   components: {
@@ -401,7 +395,6 @@ export default {
   },
   data() {
     return {
-      CountdownJSON,
       direction: 'forward',
     }
   },
