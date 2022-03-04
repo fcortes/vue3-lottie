@@ -63,6 +63,7 @@ module.exports = {
         text: 'Guide',
         link: '/guide',
       },
+      { text: 'v2.x', link: '/v2/guide.html' },
       {
         text: 'Examples',
         link: '/examples',

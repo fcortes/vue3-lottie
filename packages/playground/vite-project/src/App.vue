@@ -1,12 +1,6 @@
 <template>
-  <Vue3Lottie
-    :animationData="DogJSON"
-    :height="320"
-    :width="320"
-    direction="alternate"
-    :loop="true"
-    :count="2"
-  />
+  <Vue3Lottie :animationData="DogJSON" :height="320" :width="320" />
+
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
 </template>
 

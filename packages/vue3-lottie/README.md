@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/vue3-lottie)](https://www.npmjs.com/package/vue3-lottie) [![Downloads](https://img.shields.io/npm/dt/vue3-lottie)](https://www.npmjs.com/package/vue3-lottie) [![Stars](https://img.shields.io/github/stars/megasanjay/vue3-lottie.svg?style=flat-square)](https://github.com/megasanjay/vue3-lottie/stargazers) [![License](https://img.shields.io/npm/l/vue3-lottie)](https://github.com/megasanjay/vue3-lottie/blob/main/LICENSE) [![GitHub issues](https://img.shields.io/github/issues/megasanjay/vue3-lottie)](https://github.com/megasanjay/vue3-lottie/issues)
 
-`vue3-lottie` was created to help developers add Lottie animations to their Vue 3 applications. In my search for a simple way to add Lottie animations to my Vue application I found a suprising lack of maintained solutions. `vue3-lottie` is a vue wrapper around the `lottie-web` library with a few additional features.
+`vue3-lottie` was created to help developers add Lottie animations to their Vue 3 applications. In my search for a simple way to add Lottie animations to my Vue application I found a suprising lack of maintained solutions. `vue3-lottie` is a vue wrapper around the `lottie-player` library with a few additional features.
 
 # Demos
 
@@ -10,7 +10,7 @@ View the live demos here: [https://vue3-lottie.vercel.app](https://vue3-lottie.v
 
 # Upgrade to v2.x
 
-If you are using version 1.x of `vue3-lottie` you should upgrade to version 2.x. You can do this by running the [Installation](#installation) command below. This adds TS support for the component. There are some new imports so take a look at the [new documentation](https://vue3-lottie.vercel.app/guide.html#usage). 
+If you are using version 1.x or v2.x of `vue3-lottie` you should upgrade to version 3.x. You can do this by running the [Installation](#installation) command below. There are some new imports so take a look at the [new documentation](https://vue3-lottie.vercel.app/guide.html#usage).
 
 # Installation
 
@@ -26,7 +26,21 @@ If you are using yarn:
 yarn add vue3-lottie@latest
 ```
 
-# Usage
+# Installation and Usage
+
+## Vue 3
+
+- You can install `vue3-lottie` over `yarn` or `npm`. `lottie-web` is a dependency of `vue3-lottie` and should be automatically installed when you install `vue3-lottie`.
+
+```bash
+yarn add vue3-lottie@latest
+```
+
+```bash
+npm install vue3-lottie@latest --save
+```
+
+- Register the component in your Vue 3 application.
 
 The most common use case is to register the component globally.
 
@@ -34,36 +48,24 @@ The most common use case is to register the component globally.
 // main.js
 import { createApp } from 'vue'
 import Vue3Lottie from 'vue3-lottie'
+
 import 'vue3-lottie/dist/style.css'
 
 createApp(App).use(Vue3Lottie).mount('#app')
 ```
 
-Alternatively you can also import the component locally.
-
-```js
-import { Vue3Lottie } from 'vue3-lottie'
-import 'vue3-lottie/dist/style.css'
-
-export default {
-  components: {
-    Vue3Lottie,
-  },
-}
-```
-
-You can then use the component in your template
+Alternatively you can import the component locally.
 
 ```vue
 <template>
-  <Vue3Lottie :animationData="DogJSON" :height="200" :width="200" />
+  <Vue3Lottie :animationData="AstronautJSON" :height="200" :width="200" />
 </template>
 
 <script>
 import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 
-import DogJSON from './lotties/dog.json'
+const AstronautJSON = require('./astronaut.json')
 
 export default {
   components: {
@@ -71,46 +73,86 @@ export default {
   },
   data() {
     return {
-      DogJSON,
+      AstronautJSON,
     }
   },
 }
 </script>
 ```
 
+## Nuxt 3
+
+- You can install `vue3-lottie` over `yarn` or `npm`. `lottie-web` is a dependency of `vue3-lottie` and should be automatically installed when you install `vue3-lottie`.
+
+```bash
+yarn add vue3-lottie@latest
+```
+
+```bash
+npm install vue3-lottie@latest --save
+```
+
+- Create a folder called **`plugins`** at the root of your project.
+- Create a file named **`vue3-lottie.client.js`** inside the _plugins_ directory.
+- Add the following code to the **`vue3-lottie.client.js`** file.
+
+```js
+import { Vue3Lottie } from 'vue3-lottie'
+
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.vueApp.use(Vue3Lottie)
+})
+```
+
+- Import the css file required by the component into your **`app.vue`** file.
+
+```js
+import 'vue3-lottie/dist/style.css'
+```
+
 # Props and options
 
 More detailed explanations are provided in the [documentation](https://vue3-lottie.vercel.app/guide.html).
 
-| Prop             | Type              | Default Value | Description                                                                              |
-| ---------------- | ----------------- | ------------- | ---------------------------------------------------------------------------------------- |
-| animationData    | Object            | {}            | The lottie animation data provided as a JSON object                                      |
-| animationLink    | String            | ''            | A URL link to the Lottie animation data (eg: `Lottie Animation URL` on lottiefiles.com)  |
-| width            | Number or String  | "100%"        | Width of the lottie animation container (Numbers correspond to pixel values)             |
-| height           | Number or String  | "100%"        | Height of the lottie animation container (Numbers correspond to pixel values)            |
-| speed            | Number            | "1"           | Speed of the lottie animation                                                            |
-| direction        | String            | "forward"     | Animation play direction                                                                 |
-| loop             | Number or Boolean | true          | The number of instances that the lottie animation should run (true is infinite)          |
-| autoPlay         | Boolean           | true          | Start animation on component load                                                        |
-| delay            | Number            | 0             | Delay the animation play state by some milliseconds                                      |
-| pauseAnimation   | Boolean           | false         | Prop to pass reactive variables so that you can control animation pause and play         |
-| pauseOnHover     | Boolean           | false         | Whether to pause the animation on hover                                                  |
-| playOnHover      | Boolean           | false         | Whether to play the animation when you hover                                             |
-| backgroundColor  | String            | transparent   | Background color of the container                                                        |
-| rendererSettings | Object            | {}            | Options for if you want to use an existing canvas to draw (can be ignored on most cases) |
+| Prop            | Type              | Default Value | Description                                                                             |
+| --------------- | ----------------- | ------------- | --------------------------------------------------------------------------------------- |
+| animationData   | Object            | {}            | The lottie animation data provided as a JSON object                                     |
+| animationLink   | String            | ''            | A URL link to the Lottie animation data (eg: `Lottie Animation URL` on lottiefiles.com) |
+| width           | Number or String  | "100%"        | Width of the lottie animation container (Numbers correspond to pixel values)            |
+| height          | Number or String  | "100%"        | Height of the lottie animation container (Numbers correspond to pixel values)           |
+| speed           | Number            | "1"           | Speed of the lottie animation                                                           |
+| direction       | String            | "forward"     | Animation play direction                                                                |
+| loop            | Number or Boolean | true          | The number of instances that the lottie animation should run (true is infinite)         |
+| autoPlay        | Boolean           | true          | Start animation on component load                                                       |
+| delay           | Number            | 0             | Delay the animation play state by some milliseconds                                     |
+| pauseAnimation  | Boolean           | false         | Prop to pass reactive variables so that you can control animation pause and play        |
+| pauseOnHover    | Boolean           | false         | Whether to pause the animation on hover                                                 |
+| playOnHover     | Boolean           | false         | Whether to play the animation when you hover                                            |
+| backgroundColor | String            | transparent   | Background color of the container                                                       |
+| showControls    | Boolean           | false         | Show the lottie-player controls                                                         |
 
 # Events
 
 A few events are emitted from the component. Look at the [Demos](#Demos) for examples.
 
+- onLoad
+  - This event is fired when your animation data is loaded.
+- onReady
+  - This event is fired when your animation data is loaded and player is ready.
+- onError
+  - This event is fired when an animation source cannot be parsed, fails to load or has format errors.
+- onPlay
+  - This event is fired when the animation starts playing.
+- onPause
+  - This event is fired when the animation is paused.
+- onStop
+  - This event is fired when the animation is stopped.
 - onComplete
   - If your animation has a finite amount of loops you can use this event to know when the animation has completed.
 - onLoopComplete
   - If your animation has a finite amount of loops you can use this event to know when the animation has completed a loop.
 - onEnterFrame
   - This event is fired every frame of the animation. There will be 60 events fired per second if your lottie animation runs at 60fps.
-- onSegmentStart
-  - This event is fired when the animation enters a segment.
 
 # Methods
 
@@ -128,16 +170,8 @@ You can control the animation with the following methods. These methods can be c
   - You can call this method to change the speed of your animation.
 - setDirection(direction)
   - You can call this method to change the direction of your animation.
-- getDuration(inFrames)
-  - You can call this method to get the duration of your animation.
-- goToAndStop(frameNumber, isFrames)
-  - You can call this method to go to a specific frame of your animation. The animation will be stopped at the end of this call.
-- goToAndPlay(frameNumber, isFrames)
-  - You can call this method to go to a specific frame of your animation. The animation will be played from this frame.
-- playSegments(segments, forceFlag)
-  - You can call this method to play a specific segment of your animation.
-- setSubFrame(subFrame)
-  - You can call this method to set the subframe value.
+- getDuration()
+  - You can call this method to get the total number of frames of your animation.
 
 # Credits
 

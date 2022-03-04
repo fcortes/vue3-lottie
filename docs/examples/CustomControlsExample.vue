@@ -56,9 +56,6 @@
           <button @click="getFrameCount" style="margin-left: 20px">
             # of frames
           </button>
-          <button @click="getTimeCount" style="margin-left: 20px">
-            # of seconds
-          </button>
         </div>
       </div>
     </div>
@@ -66,7 +63,7 @@
 </template>
 
 <script>
-import {Vue3Lottie} from 'vue3-lottie'
+import { Vue3Lottie } from 'vue3-lottie'
 import CountdownJSON from './lotties/countdown.json'
 
 export default {
@@ -77,7 +74,6 @@ export default {
   data() {
     return {
       CountdownJSON,
-      count: 0,
       direction: 'forward',
     }
   },
@@ -109,13 +105,6 @@ export default {
         `This animation has ${this.$refs['customControl'].getDuration(
           true,
         )} frames`,
-      )
-    },
-    getTimeCount() {
-      alert(
-        `This animation takes ${this.$refs['customControl'].getDuration(
-          false,
-        )} seconds`,
       )
     },
   },

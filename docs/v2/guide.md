@@ -2,8 +2,8 @@
 
 **vue3-lottie** is a simple Vue 3 component that allows you to add Lottie animations into Vue applications. This component uses props for data and any config options.
 
-::: warning Limitations
-`vue3-lottie` is not a full-featured Lottie library. It is only a wrapper around the `lottie-player` library. It support most (but not all) of the features of the `lottie-player` library.
+::: warning
+You are viewing the documentation for vue3-maquee v2.x To get the latest version specific documentation, click [here](/guide).
 :::
 
 [[toc]]
@@ -14,7 +14,15 @@
 
 React has a great library called `react-lottie` that works very well. This component has been modeled after the `react-lottie` library with a few of my own additions.
 
-`vue3-lottie` is a vue wrapper around the `lottie-player` library with a few additional features. Typescript support has been added to make it easier to use.
+`vue3-lottie` is a vue wrapper around the `lottie-web` library with a few additional features. Typescript support has been added to make it easier to use.
+
+::: danger Upgrading from vue3-lottie@1.x.x
+This component has been upgraded to a new build tool with native TS support thanks to [@reslear](https://github.com/reslear). This also means that there are some breaking changes that need to be made to your code.
+
+- If you are importing the component in your main.(js|ts) file (via the `use` syntax), you don't have to modify this statement. However you will need to now import a css file as well.
+- If you are using a local import, you will need to convert your `import Vue3Lottie from 'vue3-lottie'` to `import {Vue3Lottie} from 'vue3-lottie'`. You will need to now import a css file as well
+
+  :::
 
 ::: warning For Nuxt v3
 I first created this component for use in my Nuxt 3 application. However in my initial testing for SSR I found that the component could potentially increase your TBT times (if you care about that). I only see this in my CD metrics and I cannot see a delay in my actual real world initial render times. I would also include `vue3-lottie` in a `<ClientOnly>` component to prevent it from being rendered on the server.
@@ -22,34 +30,11 @@ I first created this component for use in my Nuxt 3 application. However in my i
 If anyone has any solutions for this problem please let me know. I am open to any suggestions.
 :::
 
-## Upgrading from v2.x
+## Installation
 
-::: danger Upgrading from vue3-lottie@2.x.x
-This component has been updated to use the `lottie-player` library created by [LottieFiles](https://github.com/LottieFiles). Previously I used `lottie-web` but I found the new library to be more flexible for interactivity. `lottie-player` uses `lottie-web` under the hood so all your animations should still work the same. However this means that there might be some breaking changes that need to be made to your code.
+### NPM
 
-:::
-
-- Few methods have been removed from the `vue3-lottie` component. These methods are:
-  - `destroy`
-  - `goToAndStop`
-  - `goToAndPlay`
-  - `playSegments`
-  - `setSubFrame`
-- The `getDuration` method no longer returns a time in seconds. It only returns the number of frames in the animation.
-- The `onSegmentStart` event has been removed.
-- There are six new events that can be listened to:
-  - onLoad
-  - onReady
-  - onError
-  - onPlay
-  - onPause
-  - onPause
-
-## Installation and Usage
-
-### Vue 3
-
-- You can install `vue3-lottie` over `yarn` or `npm`. `lottie-web` is a dependency of `vue3-lottie` and should be automatically installed when you install `vue3-lottie`.
+You can install `vue3-lottie` over `yarn` or `npm`. `lottie-web` is a dependency of `vue3-lottie` and should be automatically installed when you install `vue3-lottie`.
 
 ```bash
 yarn add vue3-lottie@latest
@@ -59,7 +44,15 @@ yarn add vue3-lottie@latest
 npm install vue3-lottie@latest --save
 ```
 
-- Register the component in your Vue 3 application.
+<!-- ### Browser CDN
+
+You can also use `vue3-lottie` directly in the browser via CDN.
+
+```html
+<script src="https://unpkg.com/vue3-lottie@2.0.1/dist/vue3-lottie.es.js"></script>
+``` -->
+
+## Usage
 
 The most common use case is to register the component globally.
 
@@ -98,44 +91,6 @@ export default {
 }
 </script>
 ```
-
-### Nuxt 3
-
-- You can install `vue3-lottie` over `yarn` or `npm`. `lottie-web` is a dependency of `vue3-lottie` and should be automatically installed when you install `vue3-lottie`.
-
-```bash
-yarn add vue3-lottie@latest
-```
-
-```bash
-npm install vue3-lottie@latest --save
-```
-
-- Create a folder called **`plugins`** at the root of your project.
-- Create a file named **`vue3-lottie.client.js`** inside the _plugins_ directory.
-- Add the following code to the **`vue3-lottie.client.js`** file.
-
-```js
-import { Vue3Lottie } from 'vue3-lottie'
-
-export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.use(Vue3Lottie)
-})
-```
-
-- Import the css file required by the component into your **`app.vue`** file.
-
-```js
-import 'vue3-lottie/dist/style.css'
-```
-
-<!-- ### Browser CDN
-
-You can also use `vue3-lottie` directly in the browser via CDN.
-
-```html
-<script src="https://unpkg.com/vue3-lottie@2.0.1/dist/vue3-lottie.es.js"></script>
-``` -->
 
 ## Available props
 
@@ -207,10 +162,6 @@ A prop for detailing if you want the animation to loop. A number value would be 
 | ----------------- | ------------- | -------- | --------------------------------- |
 | Number or Boolean | `true`        | no       | `Number > 0` or `true` or `false` |
 
-::: tip
-Setting your `loop` prop to `false` is the same as setting `loop` to `1`.
-:::
-
 ### autoPlay
 
 A prop for detailing if you want the animation to play automatically.
@@ -267,41 +218,17 @@ A prop to change the background color of the container. This will be passed dire
 | ------ | ------------- | -------- | ------------------------------------------ |
 | String | `transparent` | no       | Any valid CSS color or hex based rgb value |
 
-### showControls
+### rendererSettings
 
-A prop to show the lottie player controls.
+A prop for configuring the renderer. This is not needed for most animations. To learn more about this option see the [lottie-web documentation](https://github.com/airbnb/lottie-web#other-loading-options).
 
-| Type    | Default value | Required | Accepted values   |
-| ------- | ------------- | -------- | ----------------- |
-| Boolean | `false`       | no       | `true` or `false` |
+| Type   | Default value | Required | Accepted values          |
+| ------ | ------------- | -------- | ------------------------ |
+| Object | {}            | no       | Lottie renderer settings |
 
 ## Available events
 
-`vue3-lottie` will also emit the following events. Look at the examples provided in the [examples section](/examples#listening-to-events) for how to use these methods.
-
-### onLoad
-
-This event is fired when your animation data is loaded.
-
-### onReady
-
-This event is fired when your animation data is loaded and player is ready.
-
-### onError
-
-This event is fired when an animation source cannot be parsed, fails to load or has format errors.
-
-### onPlay
-
-This event is fired when the animation starts playing.
-
-### onPause
-
-This event is fired when the animation is paused.
-
-### onStop
-
-This event is fired when the animation is stopped.
+`vue3-lottie` will also emit the following events as they are described in the [lottie-web documentation](https://github.com/airbnb/lottie-web#events). Look at the examples provided in the [examples section](/examples#listening-to-events) for how to use these methods.
 
 ### onComplete
 
@@ -315,9 +242,9 @@ If your animation has a **`finite`** amount of loops you can use this event to k
 
 This event is fired at every frame of the animation. There will be 60 events fired per second if your lottie animation runs at 60fps.
 
-:::warning
-Listening to this event could be pretty expensive.
-:::
+### onSegmentStart
+
+This event is fired when the animation enters a segment.
 
 ## Available methods
 
@@ -347,6 +274,14 @@ You can call this method to stop the animation. It will reset the animation to t
 this.$refs.lottieContainer.stop()
 ```
 
+### destroy
+
+You can call this method to destroy the animation. It will remove the animation from the DOM. This method takes no arguments.
+
+```js
+this.$refs.lottieContainer.destroy()
+```
+
 ### setSpeed
 
 You can call this method to change the speed of your animation. This method takes a single argument which is the speed of the animation. The speed has to be a `number > 0`. You can also set this as a [prop](#speed) during initialization.
@@ -369,8 +304,57 @@ this.$refs.lottieContainer.setDirection('forward')
 
 ### getDuration
 
-You can call this method to get the total number of frames of your animation. This method takes no argument.
+You can call this method to get the duration of your animation. This method takes one argument.
+
+- `inFrames`: If `true`, returns duration in frames, if `false`, in seconds. This is set to `true` by default.
 
 ```js
-this.$refs.lottieContainer.getDuration()
+this.$refs.lottieContainer.getDuration(true)
+```
+
+### goToAndStop
+
+You can call this method to go to a specific frame of your animation. The animation will be stopped at the end of this call. This method takes two arguments.
+
+- `frame`: numeric value
+- `isFrame`: defines if first argument is a time based value or a frame based. This value is set to `true` by default.
+
+```js
+this.$refs.lottieContainer.goToAndStop(10, true)
+```
+
+If you set the second argument to `false` you will be moving in seconds. (10 seconds in this example).
+
+### goToAndPlay
+
+You can call this method to go to a specific frame of your animation. The animation will be played from this frame. This method takes two arguments.
+
+- `frame`: numeric value
+- `isFrame`: defines if first argument is a time based value or a frame based. This value is set to `true` by default.
+
+```js
+this.$refs.lottieContainer.goToAndPlay(5, true)
+```
+
+If you set the second argument to `false` you will be moving in seconds. (5 seconds in this example).
+
+### playSegments
+
+You can call this method to play a specific segment of your animation. This method takes two arguments.
+
+- `segments`: array. Can contain 2 numeric values that will be used as first and last frame of the animation. Or can contain a sequence of arrays each with 2 numeric values.
+- `forceFlag`: boolean. If set to false, it will wait until the current segment is complete. If true, it will update values immediately. This value is set to `false` by default.
+
+```js
+this.$refs.lottieContainer.playSegments([10, 20], true)
+```
+
+### setSubFrame
+
+You can call this method to set the subframe value. This method takes a single argument.
+
+- `useSubFrame`: If `false`, it will respect the original After Effects fps. If `true`, it will update on every requestAnimationFrame with intermediate values. Default is `true`.
+
+```js
+this.$refs.lottieContainer.setSubFrame(true)
 ```

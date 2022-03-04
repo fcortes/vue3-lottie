@@ -358,7 +358,6 @@ export default {
         <div>
           <button @click="toggleDirection">Reverse</button>
           <button @click="getFrameCount"># of frames</button>
-          <button @click="getTimeCount"># of seconds</button>
         </div>
       </div>
     </div>
@@ -379,7 +378,6 @@ export default {
   data() {
     return {
       CountdownJSON,
-      count: 0,
       direction: 'forward',
     }
   },
@@ -411,13 +409,6 @@ export default {
         `This animation has ${this.$refs['customControl'].getDuration(
           true,
         )} frames`,
-      )
-    },
-    getTimeCount() {
-      alert(
-        `This animation takes ${this.$refs['customControl'].getDuration(
-          false,
-        )} seconds`,
       )
     },
   },
