@@ -19,13 +19,18 @@ If you don't see the example in any of the sections below [click here](https://v
   import ReactiveExample from './examples/ReactiveExample.vue'
   import EventExample from './examples/EventExample.vue'
   import CustomControlsExample from './examples/CustomControlsExample.vue'
+
+  import 'vue3-lottie/dist/style.css'
 </script>
 
 ## Basic example with animationData
 
-<ClientOnly>
-<BasicExample />
-</ClientOnly>
+<iframe src="https://codesandbox.io/embed/vue3lottie-basicexample-wiocm9?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark&view=preview"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="Vue3Lottie-BasicExample"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
 ```vue
 <template>
@@ -53,18 +58,21 @@ export default {
 
 ## Basic example with animationLink
 
-<ClientOnly>
-<BasicExampleURL />
-</ClientOnly>
+<iframe src="https://codesandbox.io/embed/vue3lottie-basicexampleurl-okcc96?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark&view=preview"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="Vue3Lottie-BasicExampleURL"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
 You can also pass in a valid URL link to the lottie file JSON object instead of referring to a local file. There is a chance that this might be breaking GDPR rules. If you are unsure, please read the terms and conditions of your lottie animation hosting platform.
 
 ```vue
 <template>
   <Vue3Lottie
-    animationLink="https://assets5.lottiefiles.com/packages/lf20_vmollwvl.json"
-    :height="200"
-    :width="200"
+    animationLink="https://assets6.lottiefiles.com/packages/lf20_vmkcywu4.json"
+    :height="300"
+    :width="300"
   />
 </template>
 
@@ -85,29 +93,31 @@ export default {
 
 You can also pass in any valid css unit here. If you pass in a number, It will be inferenced as a `pixel` value. Some valid examples include `50%`, `10em`, etc.
 
-<ClientOnly>
-<BasicExampleWidthHeight />
-</ClientOnly>
+<iframe src="https://codesandbox.io/embed/vue3lottie-basicexamplewidthheight-p7e9qr?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark&view=preview"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="Vue3Lottie-BasicExampleWidthHeight"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
 ```vue
 <template>
-  <Vue3Lottie :animationData="VinylJSON" :height="300" :width="300" />
+  <Vue3Lottie
+    animationLink="https://assets6.lottiefiles.com/packages/lf20_FrS7ei.json"
+    height="20em"
+    width="20em"
+    direction="alternate"
+  />
 </template>
 
 <script>
 import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 
-import VinylJSON from './lotties/vinyl.json'
-
 export default {
+  name: 'BasicExampleAlternate',
   components: {
     Vue3Lottie,
-  },
-  data() {
-    return {
-      VinylJSON,
-    }
   },
 }
 </script>
@@ -115,20 +125,23 @@ export default {
 
 ## Loop example
 
-<ClientOnly>
-<LoopExample />
-</ClientOnly>
+<iframe src="https://codesandbox.io/embed/vue3lottie-loopexample-q807gc?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark&view=preview"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="Vue3Lottie-LoopExample"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
 ::: info
-If the loop has already been completed, refreshing the page will restart the animation.
+If the loop has already been completed, reloading the sandbox will restart the animation.
 :::
 
 ```vue
 <template>
   <Vue3Lottie
-    :animationData="AstronautJSON"
-    :height="200"
-    :width="200"
+    animationLink="https://assets6.lottiefiles.com/packages/lf20_fonjkhhq.json"
+    :height="300"
+    :width="300"
     :loop="3"
   />
 </template>
@@ -137,16 +150,10 @@ If the loop has already been completed, refreshing the page will restart the ani
 import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 
-import AstronautJSON from './lotties/astronaut.json'
-
 export default {
+  name: 'LoopExample',
   components: {
     Vue3Lottie,
-  },
-  data() {
-    return {
-      AstronautJSON,
-    }
   },
 }
 </script>
@@ -156,9 +163,12 @@ export default {
 
 You can set the `direction` to `alternate` to reverse the animation at the end of a loop.
 
-<ClientOnly>
-<BasicExampleAlternate/>
-</ClientOnly>
+<iframe src="https://codesandbox.io/embed/vue3lottie-basicexamplealternate-o988n0?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark&view=preview"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="Vue3Lottie-BasicExampleAlternate"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
 ```vue
 <template>
@@ -194,16 +204,19 @@ export default {
 
 If you set `pauseOnHover` to true, the animation will pause when you hover over the animation.
 
-<ClientOnly>
-<PauseOnHoverExample />
-</ClientOnly>
+<iframe src="https://codesandbox.io/embed/vue3lottie-pauseonhoverexample-25kfhz?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark&view=preview"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="Vue3Lottie-PauseOnHoverExample"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
 ```vue
 <template>
   <Vue3Lottie
-    :animationData="RocketJSON"
-    :height="200"
-    :width="200"
+    animationLink="https://assets3.lottiefiles.com/packages/lf20_2kHQhR.json"
+    :height="300"
+    :width="300"
     :pauseOnHover="true"
   />
 </template>
@@ -212,16 +225,10 @@ If you set `pauseOnHover` to true, the animation will pause when you hover over 
 import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 
-import RocketJSON from './lotties/rocket.json'
-
 export default {
+  name: 'PauseOnHoverExample',
   components: {
     Vue3Lottie,
-  },
-  data() {
-    return {
-      RocketJSON,
-    }
   },
 }
 </script>
@@ -231,16 +238,19 @@ export default {
 
 The lottie animation will play when you hover over the animation. Moving the mouse away will pause the animation at its current frame. Hovering over the container will play the animation from where it left off.
 
-<ClientOnly>
-<PlayOnHoverExample/>
-</ClientOnly>
+<iframe src="https://codesandbox.io/embed/vue3lottie-playonhoverexample-q3t989?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark&view=preview"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="Vue3Lottie-PlayOnHoverExample"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
 ```vue
 <template>
   <Vue3Lottie
-    :animationData="WifiJSON"
-    :height="200"
-    :width="200"
+    animationLink="https://assets10.lottiefiles.com/packages/lf20_ulzuuger.json"
+    :height="400"
+    :width="400"
     :playOnHover="true"
   />
 </template>
@@ -249,16 +259,10 @@ The lottie animation will play when you hover over the animation. Moving the mou
 import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 
-import WifiJSON from './lotties/wifi.json'
-
 export default {
+  name: 'PlayOnHoverExample',
   components: {
     Vue3Lottie,
-  },
-  data() {
-    return {
-      WifiJSON,
-    }
   },
 }
 </script>
