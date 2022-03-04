@@ -6,11 +6,11 @@
 
 # Demos
 
-View the live demos here: [https://vue3-lottie.vercel.app](https://vue3-lottie.vercel.app)
+View the live demos here: [https://vue3-lottie.vercel.app/examples.html](https://vue3-lottie.vercel.app/examples.html)
 
 # Upgrade to v3.x
 
-If you are using version 1.x or v2.x of `vue3-lottie` you should upgrade to version 3.x. You can do this by running the [Installation](#installation) command below. There are some new imports so take a look at the [new documentation](https://vue3-lottie.vercel.app/guide.html#usage).
+If you are using version 1.x or v2.x of `vue3-lottie` you should upgrade to version 3.x. You can do this by running the [Installation](#installation) command below. There are some new imports so take a look at the [new documentation](https://vue3-lottie.vercel.app/guide.html).
 
 # Installation
 
@@ -133,7 +133,7 @@ More detailed explanations are provided in the [documentation](https://vue3-lott
 
 # Events
 
-A few events are emitted from the component. Look at the [Demos](#Demos) for examples.
+A few events are emitted from the component. Look at the [Demos](https://vue3-lottie.vercel.app/examples.html#listening-to-events) for examples.
 
 - onLoad
   - This event is fired when your animation data is loaded.
@@ -156,7 +156,7 @@ A few events are emitted from the component. Look at the [Demos](#Demos) for exa
 
 # Methods
 
-You can control the animation with the following methods. These methods can be called by assigning a `ref` value to the `vue3-lottie` component. Look at the [Demos](#Demos) for examples.
+You can control the animation with the following methods. These methods can be called by assigning a `ref` value to the `vue3-lottie` component. Look at the [Demos](https://vue3-lottie.vercel.app/examples.html#custom-controls) for examples.
 
 - play
   - Plays the animation

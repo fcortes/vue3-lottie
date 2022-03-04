@@ -3,25 +3,10 @@
 Some examples of how to use the library are shown below.
 
 :::warning
-If you don't see the example in any of the sections below [click here](https://vue3-lottie.vercel.app/) and click the `examples` in the navbar. There is occasionally a bug with Vitepress where all the components are loaded at the end of the page.
+If you don't see the examples in any of the sections below or see a `Cannot use import statement outside a module` error, please refresh the codesandbox or refresh the page. This is an issue with how codesandbox renders Vue code. If the animations start stuttering or lagging click on the `Open Sandbox` button in the bottom right corner to open the example in its own native window.
 :::
 
 [[toc]]
-
-<script setup>
-  import BasicExample from './examples/BasicExample.vue'
-  import BasicExampleURL from './examples/BasicExampleURL.vue'
-  import BasicExampleWidthHeight from './examples/BasicExampleWidthHeight.vue'
-  import BasicExampleAlternate from './examples/BasicExampleAlternate.vue'
-  import LoopExample from './examples/LoopExample.vue'
-  import PauseOnHoverExample from './examples/PauseOnHoverExample.vue'
-  import PlayOnHoverExample from './examples/PlayOnHoverExample.vue'
-  import ReactiveExample from './examples/ReactiveExample.vue'
-  import EventExample from './examples/EventExample.vue'
-  import CustomControlsExample from './examples/CustomControlsExample.vue'
-
-  import 'vue3-lottie/dist/style.css'
-</script>
 
 ## Basic example with animationData
 
