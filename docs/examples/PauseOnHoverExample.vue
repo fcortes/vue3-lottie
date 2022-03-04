@@ -1,14 +1,16 @@
 <template>
-  <Vue3Lottie
-    :animationData="RocketJSON"
-    :height="200"
-    :width="200"
-    :pauseOnHover="true"
-  />
+  <ClientOnly>
+    <Vue3Lottie
+      :animationData="RocketJSON"
+      :height="200"
+      :width="200"
+      :pauseOnHover="true"
+    />
+  </ClientOnly>
 </template>
 
 <script>
-import {Vue3Lottie} from 'vue3-lottie'
+import { Vue3Lottie } from 'vue3-lottie'
 import RocketJSON from './lotties/rocket.json'
 
 export default {

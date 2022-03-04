@@ -15,12 +15,14 @@
         justify-content: center;
       "
     >
-      <Vue3Lottie
-        ref="customControl"
-        :animationData="CountdownJSON"
-        :height="200"
-        :width="200"
-      />
+      <ClientOnly>
+        <Vue3Lottie
+          ref="customControl"
+          :animationData="CountdownJSON"
+          :height="200"
+          :width="200"
+        />
+      </ClientOnly>
       <div
         style="
           display: flex;

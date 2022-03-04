@@ -7,12 +7,14 @@
       justify-content: center;
     "
   >
-    <Vue3Lottie
-      :animationData="ClockJSON"
-      :height="200"
-      :width="200"
-      @onLoopComplete="completed++"
-    />
+    <ClientOnly>
+      <Vue3Lottie
+        :animationData="ClockJSON"
+        :height="200"
+        :width="200"
+        @onLoopComplete="completed++"
+      />
+    </ClientOnly>
     <span style="margin-left: 20px">
       This animation has completed {{ completed }} times.
     </span>
@@ -20,7 +22,7 @@
 </template>
 
 <script>
-import {Vue3Lottie} from 'vue3-lottie'
+import { Vue3Lottie } from 'vue3-lottie'
 import ClockJSON from './lotties/clock.json'
 
 export default {

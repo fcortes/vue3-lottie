@@ -1,9 +1,11 @@
 <template>
-  <Vue3Lottie :animationData="VinylJSON" :height="300" :width="300" />
+  <ClientOnly>
+    <Vue3Lottie :animationData="VinylJSON" :height="300" :width="300" />
+  </ClientOnly>
 </template>
 
 <script>
-import {Vue3Lottie} from 'vue3-lottie'
+import { Vue3Lottie } from 'vue3-lottie'
 import VinylJSON from './lotties/vinyl.json'
 
 export default {

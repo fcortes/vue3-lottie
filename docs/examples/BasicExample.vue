@@ -1,5 +1,7 @@
 <template>
-  <Vue3Lottie :animationData="DogJSON" :height="200" :width="200" />
+  <ClientOnly>
+    <Vue3Lottie :animationData="DogJSON" :height="200" :width="200" />
+  </ClientOnly>
 </template>
 
 <script>

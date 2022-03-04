@@ -1,14 +1,16 @@
 <template>
-  <Vue3Lottie
-    :animationData="AstronautJSON"
-    :height="200"
-    :width="200"
-    :loop="3"
-  />
+  <ClientOnly>
+    <Vue3Lottie
+      :animationData="AstronautJSON"
+      :height="200"
+      :width="200"
+      :loop="3"
+    />
+  </ClientOnly>
 </template>
 
 <script>
-import {Vue3Lottie} from 'vue3-lottie'
+import { Vue3Lottie } from 'vue3-lottie'
 import AstronautJSON from './lotties/astronaut.json'
 
 export default {

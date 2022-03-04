@@ -7,12 +7,14 @@
       justify-content: center;
     "
   >
-    <Vue3Lottie
-      :animationData="CarJSON"
-      :height="200"
-      :width="200"
-      :pauseAnimation="playState"
-    />
+    <ClientOnly>
+      <Vue3Lottie
+        :animationData="CarJSON"
+        :height="200"
+        :width="200"
+        :pauseAnimation="playState"
+      />
+    </ClientOnly>
     <button @click="playState = !playState" style="margin-left: 20px">
       Play/Pause Animation
     </button>

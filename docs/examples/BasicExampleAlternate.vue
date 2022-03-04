@@ -1,10 +1,12 @@
 <template>
-  <Vue3Lottie
-    :animationData="StarJSON"
-    :height="300"
-    :width="300"
-    direction="alternate"
-  />
+  <ClientOnly>
+    <Vue3Lottie
+      :animationData="StarJSON"
+      :height="300"
+      :width="300"
+      direction="alternate"
+    />
+  </ClientOnly>
 </template>
 
 <script>

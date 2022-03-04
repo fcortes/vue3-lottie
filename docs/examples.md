@@ -23,7 +23,9 @@ If you don't see the example in any of the sections below [click here](https://v
 
 ## Basic example with animationData
 
+<ClientOnly>
 <BasicExample />
+</ClientOnly>
 
 ```vue
 <template>
@@ -51,7 +53,9 @@ export default {
 
 ## Basic example with animationLink
 
+<ClientOnly>
 <BasicExampleURL />
+</ClientOnly>
 
 You can also pass in a valid URL link to the lottie file JSON object instead of referring to a local file. There is a chance that this might be breaking GDPR rules. If you are unsure, please read the terms and conditions of your lottie animation hosting platform.
 
@@ -81,7 +85,9 @@ export default {
 
 You can also pass in any valid css unit here. If you pass in a number, It will be inferenced as a `pixel` value. Some valid examples include `50%`, `10em`, etc.
 
+<ClientOnly>
 <BasicExampleWidthHeight />
+</ClientOnly>
 
 ```vue
 <template>
@@ -109,7 +115,9 @@ export default {
 
 ## Loop example
 
+<ClientOnly>
 <LoopExample />
+</ClientOnly>
 
 ::: info
 If the loop has already been completed, refreshing the page will restart the animation.
@@ -148,7 +156,9 @@ export default {
 
 You can set the `direction` to `alternate` to reverse the animation at the end of a loop.
 
+<ClientOnly>
 <BasicExampleAlternate/>
+</ClientOnly>
 
 ```vue
 <template>
@@ -184,7 +194,9 @@ export default {
 
 If you set `pauseOnHover` to true, the animation will pause when you hover over the animation.
 
+<ClientOnly>
 <PauseOnHoverExample />
+</ClientOnly>
 
 ```vue
 <template>
@@ -219,7 +231,9 @@ export default {
 
 The lottie animation will play when you hover over the animation. Moving the mouse away will pause the animation at its current frame. Hovering over the container will play the animation from where it left off.
 
+<ClientOnly>
 <PlayOnHoverExample/>
+</ClientOnly>
 
 ```vue
 <template>
@@ -254,7 +268,9 @@ export default {
 
 You can also use the `pauseAnimation` prop to control the play and pause state of the lottie animation.
 
+<ClientOnly>
 <ReactiveExample/>
+</ClientOnly>
 
 ```vue
 <template>
@@ -293,7 +309,9 @@ export default {
 
 `vue3-lottie` has support for events to be emitted from the animation.
 
+<ClientOnly>
 <EventExample/>
+</ClientOnly>
 
 ```vue
 <template>
@@ -333,7 +351,9 @@ export default {
 
 `vue3-lottie` has a few methods that you can call directly from your component if needed. Add a `ref` to the `vue3-lottie` component and then call the methods you want.
 
+<ClientOnly>
 <CustomControlsExample/>
+</ClientOnly>
 
 ::: info
 `stop` will stop the animation and reset it to the first frame.
@@ -406,9 +426,9 @@ export default {
     },
     getFrameCount() {
       alert(
-        `This animation has ${this.$refs['customControl'].getDuration(
-          true,
-        )} frames`,
+        `This animation has ${this.$refs[
+          'customControl'
+        ].getDuration()} frames`,
       )
     },
   },

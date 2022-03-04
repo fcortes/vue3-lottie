@@ -1,14 +1,16 @@
 <template>
-  <Vue3Lottie
-    :animationData="WifiJSON"
-    :height="200"
-    :width="200"
-    :playOnHover="true"
-  />
+  <ClientOnly>
+    <Vue3Lottie
+      :animationData="WifiJSON"
+      :height="200"
+      :width="200"
+      :playOnHover="true"
+    />
+  </ClientOnly>
 </template>
 
 <script>
-import {Vue3Lottie} from 'vue3-lottie'
+import { Vue3Lottie } from 'vue3-lottie'
 import WifiJSON from './lotties/wifi.json'
 
 export default {
