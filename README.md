@@ -8,7 +8,7 @@
 
 View the live demos here: [https://vue3-lottie.vercel.app](https://vue3-lottie.vercel.app)
 
-# Upgrade to v2.x
+# Upgrade to v3.x
 
 If you are using version 1.x or v2.x of `vue3-lottie` you should upgrade to version 3.x. You can do this by running the [Installation](#installation) command below. There are some new imports so take a look at the [new documentation](https://vue3-lottie.vercel.app/guide.html#usage).
 
