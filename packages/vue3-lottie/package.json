@@ -31,6 +31,7 @@
   "main": "dist/vue3-lottie.umd.js",
   "module": "dist/vue3-lottie.es.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/vue3-lottie.es.js",
